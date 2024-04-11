@@ -16,3 +16,26 @@ Includes:
 4. Configure Gradle
    1. Settings > Build, Execution, Deployment > Build Tools > Gradle
    2. Set Gradle JVM to 17
+
+# Clases
+
+- Backpack 
+  - Guarda : arraylist de artículos
+  + estoy_lleno
+  + eliminar_articulo
+  + añadir_articulo
+- Bolsa
+  - Guarda : arraylist de artículos
+  - Categoría : string
+  + estoy_lleno
+  + eliminar_articulo
+  + añadir_articulo
+- Artículo
+  - Nombre : string
+  - Categoría : string
+- Persona
+   - Backpack backpack
+   - ArrayList<Bolsa> bolsas
+   + meter_articulo_backpack
+   + meter_articulo_bolsa
+   + organizar_alfabeticamente

@@ -1,10 +1,10 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
-public class Backpack {
+public class Bag {
     private ArrayList<Item> items = new ArrayList<>();
-
     public void addItem(Item item) {
         if(!isFull()) {
             this.items.add(item);
@@ -16,6 +16,6 @@ public class Backpack {
     }
 
     public boolean isFull() {
-        return items.size() >= 8;
+        return items.size() >= 4;
     }
 }

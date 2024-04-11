@@ -9,34 +9,31 @@ public class BackpackTest {
     //Add new item
     //Check if is full
     //Try add item when backpack is full
+    private Item item = new Item("iron", "metal");
 
     @Test
-    @Description("Add one item to backpack")
-    void addItem() {
+    public void add_one_item_to_backpack () {
         Backpack backpack = new Backpack();
-        backpack.addItem("Iron");
-        assertTrue(backpack.items().contains("Iron"));
+        backpack.addItem(item);
+        assertTrue(backpack.items().contains(item));
     }
-
     @Test
-    @Description("Check if backpack is full or not")
-    void isFull() {
+    void check_if_backpack_is_full_or_not() {
         Backpack backpack = new Backpack();
 
         for (int iterator = 0; iterator < 7; iterator++) {
-            backpack.addItem("Iron");
+            backpack.addItem(item);
         }
         assertFalse(backpack.isFull());
-        backpack.addItem("Iron");
+        backpack.addItem(item);
         assertTrue(backpack.isFull());
     }
-
     @Test
-    @Description("Add item if backpack is not full")
-    void addItemIfHaveSpace() {
+    //@Description("Add item if backpack is not full")
+    void add_item_if_have_space() {
         Backpack backpack = new Backpack();
         for (int iterator = 0; iterator < 10; iterator++) {
-            backpack.addItem("Iron");
+            backpack.addItem(item);
         }
         assertEquals(8, backpack.items().size());
     }
