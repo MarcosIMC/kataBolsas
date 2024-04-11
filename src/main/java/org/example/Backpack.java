@@ -2,8 +2,8 @@ package org.example;
 
 import java.util.ArrayList;
 
-public class Backpack {
-    private ArrayList<Item> items = new ArrayList<>();
+public class Backpack implements Pack{
+    private final ArrayList<Item> items = new ArrayList<>();
 
     public void addItem(Item item) {
         if(!isFull()) {
@@ -17,5 +17,9 @@ public class Backpack {
 
     public boolean isFull() {
         return items.size() >= 8;
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
     }
 }

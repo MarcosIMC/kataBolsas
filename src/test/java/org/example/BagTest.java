@@ -1,13 +1,14 @@
 package org.example;
 
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BagTest {
-    private Item item = new Item("iron", "metal");
+    // Add new item
+    // Check if is full
+    // Try add item when backpack is full
+    // Delete item
+    private Item item = new Item("iron", CategoryTypes.METALS);
     @Test
     public void add_one_item_to_bag () {
         Bag bag = new Bag();
@@ -31,5 +32,15 @@ public class BagTest {
             bag.addItem(item);
         }
         assertEquals(4, bag.items().size());
+    }
+    @Test
+    void delete_item(){
+        Bag bag = new Bag();
+        bag.addItem(item);
+        bag.addItem(item);
+        bag.addItem(item);
+        bag.removeItem(item);
+
+        assertEquals(2, bag.items().size());
     }
 }

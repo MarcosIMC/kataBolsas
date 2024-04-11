@@ -1,15 +1,15 @@
 package org.example;
 
-import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BackpackTest {
-    //Add new item
-    //Check if is full
-    //Try add item when backpack is full
-    private Item item = new Item("iron", "metal");
+    // Add new item
+    // Check if is full
+    // Try add item when backpack is full
+    // Delete item
+    private final Item item = new Item("iron", CategoryTypes.METALS);
 
     @Test
     public void add_one_item_to_backpack () {
@@ -29,12 +29,21 @@ public class BackpackTest {
         assertTrue(backpack.isFull());
     }
     @Test
-    //@Description("Add item if backpack is not full")
     void add_item_if_have_space() {
         Backpack backpack = new Backpack();
         for (int iterator = 0; iterator < 10; iterator++) {
             backpack.addItem(item);
         }
         assertEquals(8, backpack.items().size());
+    }
+    @Test
+    void delete_item(){
+        Backpack backpack = new Backpack();
+        backpack.addItem(item);
+        backpack.addItem(item);
+        backpack.addItem(item);
+        backpack.removeItem(item);
+
+        assertEquals(2, backpack.items().size());
     }
 }
