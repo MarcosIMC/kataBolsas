@@ -32,5 +32,43 @@ public class Person {
 
     }
     public void organize() {
+        ArrayList<Item> floor = putItemsOnFloor();
+        clearPack();
+        organizeByCategory(floor);
+
+        if (!floor.isEmpty()) {
+            floor.clear();
+        }
+    }
+
+    private ArrayList<Item> putItemsOnFloor() {
+        ArrayList<Item> floor = new ArrayList<>(this.backpack.items());
+        for (Bag bag: this.bags) {
+            floor.addAll(bag.items());
+        }
+        return floor;
+    }
+
+    private void clearPack() {
+        this.backpack.items().clear();
+        for (Bag bag: this.bags) {
+            bag.items().clear();
+        }
+    }
+
+    private void organizeByCategory(ArrayList<Item> floor) {
+        for (Item item : floor) {
+            if (item.category() == CategoryTypes.METALS && !this.bags.get(2).isFull()) {
+                this.bags.get(2).addItem(item);
+            } else if (item.category() == CategoryTypes.HERBS && !this.bags.get(3).isFull()) {
+                this.bags.get(3).addItem(item);
+            } else if (!this.backpack.isFull()){
+                this.backpack.addItem(item);
+            } else if (!this.bags.get(0).isFull()) {
+                this.bags.get(0).addItem(item);
+            } else if (!this.bags.get(1).isFull()) {
+                this.bags.get(1).addItem(item);
+            }
+        }
     }
 }

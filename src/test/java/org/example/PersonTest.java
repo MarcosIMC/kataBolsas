@@ -12,6 +12,9 @@ public class PersonTest {
     // Organizar todito por categorias
     // Organizar alfabeticamente
     // ? gestión de organizar
+
+    //Hay Que refactorizar <3
+
     @Test
     void add_item_in_backpack_when_is_space() {
         Person durance = new Person();
@@ -42,34 +45,36 @@ public class PersonTest {
     }
     @Test
     void organize_by_category() {
-Person durance = new Person();
+        Person durance = new Person();
+        ArrayList<Item> items = initData();
+        for (Item item: items ) {
+            durance.addItem(item);
+        }
+        durance.organize();
+        assertEquals(8, durance.backpack.items().size());
+        assertEquals(4, durance.bags.get(2).items().size());
+        assertEquals(2, durance.bags.get(3).items().size());
+        assertEquals(4, durance.bags.get(0).items().size());
+        assertEquals(2, durance.bags.get(1).items().size());
+
+        for (Bag bag: durance.bags ) {
+            for (Item item: bag.items() ) {
+                switch (bag.categy) {
+                    case METALS, HERBS -> assertEquals(bag.categy, item.category());
+                }
+            }
+        }
+    }
+
+    private ArrayList<Item> initData() {
         ArrayList<Item> items = new ArrayList<>();
         for (int i = 0 ; i < 8; i ++) { items.add(new Item("Iron", CategoryTypes.METALS));}
         for (int i = 0 ; i < 2; i ++) { items.add(new Item("Marigold", CategoryTypes.HERBS));}
         for (int i = 0 ; i < 2; i ++) { items.add(new Item("Silk", CategoryTypes.CLOTHES));}
         for (int i = 0 ; i < 4; i ++) { items.add(new Item("Axe", CategoryTypes.WEAPONS));}
         for (int i = 0 ; i < 4; i ++) { items.add(new Item("Strawberry", CategoryTypes.NONE));}
-        for (Item item: items ) {
-            durance.addItem(item);
-        }
-        durance.organize();
-        assertEquals(8, durance.backpack.items().size());
-        assertEquals(4, durance.bags.get(0).items().size());
-        assertEquals(2, durance.bags.get(1).items().size());
-        for (Bag bag: durance.bags ) {
-            for (Item item: bag.items() ) {
-                switch (bag.categy) {
-                    case METALS -> {
-                        assertEquals(bag.categy, item.category());
-                        assertEquals(4, bag.items().size());
-                    }
-                    case HERBS -> {
-                        assertEquals(bag.categy, item.category());
-                        assertEquals(2, bag.items().size());
-                    }
-                }
-            }
-        }
+
+        return items;
     }
-    }
+}
 
