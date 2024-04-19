@@ -1,13 +1,12 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class Bag implements Pack{
-    CategoryTypes categy = CategoryTypes.NONE;
+    CategoryTypes category = CategoryTypes.NONE;
 
     public Bag(CategoryTypes categy) {
-        this.categy = categy;
+        this.category = categy;
     }
     public Bag() {}
     private final ArrayList<Item> items = new ArrayList<>();

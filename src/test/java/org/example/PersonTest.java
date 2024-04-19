@@ -65,8 +65,8 @@ public class PersonTest {
 
         for (Bag bag: durance.bags ) {
             for (Item item: bag.items() ) {
-                switch (bag.categy) {
-                    case METALS, HERBS -> assertEquals(bag.categy, item.category());
+                switch (bag.category) {
+                    case METALS, HERBS -> assertEquals(bag.category, item.category());
                 }
             }
         }

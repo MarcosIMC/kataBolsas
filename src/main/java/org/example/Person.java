@@ -59,18 +59,28 @@ public class Person {
 
     private void organizeByCategory(ArrayList<Item> floor) {
         for (Item item : floor) {
-            if (item.category() == CategoryTypes.METALS && !this.bags.get(2).isFull()) {
-                this.bags.get(2).addItem(item);
-            } else if (item.category() == CategoryTypes.HERBS && !this.bags.get(3).isFull()) {
-                this.bags.get(3).addItem(item);
-            } else if (!this.backpack.isFull()){
-                this.backpack.addItem(item);
-            } else if (!this.bags.get(0).isFull()) {
-                this.bags.get(0).addItem(item);
-            } else if (!this.bags.get(1).isFull()) {
-                this.bags.get(1).addItem(item);
+            Bag bag = searchBag(item.category());
+            if (bag == null) {
+                if(!this.backpack.isFull()) {
+                    this.backpack.addItem(item);
+                }
+            }else {
+                if (item.category() == CategoryTypes.METALS && bag.category == CategoryTypes.METALS && !bag.isFull()) {
+                    bag.addItem(item);
+                } else if (item.category() == CategoryTypes.HERBS && bag.category == CategoryTypes.HERBS && !bag.isFull()) {
+                    bag.addItem(item);
+                } else {
+                    bag.addItem(item);
+                }
             }
         }
+    }
+
+    private Bag searchBag(CategoryTypes category) {
+        for (Bag bag: this.bags) {
+            if (bag.category == category && !bag.isFull()) return bag;
+        }
+        return null;
     }
 
     public void organizeAlphabetically() {
