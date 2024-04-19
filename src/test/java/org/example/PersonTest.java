@@ -1,4 +1,5 @@
 package org.example;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -15,16 +16,23 @@ public class PersonTest {
 
     //Hay Que refactorizar <3
 
+    Person durance = new Person();
+
+
+    @BeforeEach
+    void init(){
+        durance = new Person();
+    }
+
+
     @Test
     void add_item_in_backpack_when_is_space() {
-        Person durance = new Person();
         Item item = new Item("iron", CategoryTypes.METALS);
         durance.addItem(item);
         assertEquals(1, durance.backpack.items().size());
     }
     @Test
     void add_item_in_bag_when_backpack_full() {
-        Person durance = new Person();
         Item item = new Item("iron", CategoryTypes.METALS);
         for (int i = 0; i < 10; i ++) {
             durance.addItem(item);
@@ -34,7 +42,6 @@ public class PersonTest {
     }
     @Test
     void add_item_in_2nd_bag_when_1st_bag_full() {
-        Person durance = new Person();
         Item item = new Item("iron", CategoryTypes.METALS);
         for (int i = 0; i < 13; i ++) {
             durance.addItem(item);
@@ -45,7 +52,6 @@ public class PersonTest {
     }
     @Test
     void organize_by_category() {
-        Person durance = new Person();
         ArrayList<Item> items = initData();
         for (Item item: items ) {
             durance.addItem(item);
@@ -65,6 +71,54 @@ public class PersonTest {
             }
         }
     }
+    @Test
+    void organize_backpack_alphabetically(){
+        for (int i = 0 ; i < 2; i ++) { durance.addItem(new Item("Iron", CategoryTypes.METALS));}
+        for (int i = 0 ; i < 2; i ++) { durance.addItem(new Item("Marigold", CategoryTypes.HERBS));}
+        durance.addItem(new Item("Silk", CategoryTypes.CLOTHES));
+        durance.addItem(new Item("Axe", CategoryTypes.WEAPONS));
+        durance.organizeAlphabetically();
+        String[] itemsNameExpect = {"Axe", "Iron", "Iron", "Marigold", "Marigold","Silk"};
+        int count = 0;
+        for (Item item: durance.backpack.items()){
+            assertEquals(item.name(),itemsNameExpect[count]);
+            count++;
+        }
+    }
+
+    @Test
+    void organize_first_bags_alphabetically(){
+        for (int i = 0 ; i < 8; i ++) { durance.addItem(new Item("Iron", CategoryTypes.METALS));}
+        for (int i = 0 ; i < 2; i ++) { durance.addItem(new Item("Marigold", CategoryTypes.HERBS));}
+        durance.addItem(new Item("Silk", CategoryTypes.CLOTHES));
+        durance.addItem(new Item("Axe", CategoryTypes.WEAPONS));
+
+        durance.organizeAlphabetically();
+        String[] itemsNameExpectBagOne = {"Axe", "Marigold", "Marigold","Silk"};
+        int count = 0;
+        for (Item item: durance.bags.get(0).items()){
+            assertEquals(item.name(),itemsNameExpectBagOne[count]);
+            count++;
+        }
+    }
+    @Test
+    void organize_bags_alphabetically(){
+        for (int i = 0 ; i < 8; i ++) { durance.addItem(new Item("Iron", CategoryTypes.METALS));}
+        for (int i = 0 ; i < 4; i ++) { durance.addItem(new Item("Marigold", CategoryTypes.HERBS));}
+        durance.addItem(new Item("Silk", CategoryTypes.CLOTHES));
+        durance.addItem(new Item("Axe", CategoryTypes.WEAPONS));
+        durance.addItem(new Item("Marigold", CategoryTypes.HERBS));
+        durance.addItem(new Item("Axe", CategoryTypes.WEAPONS));
+
+        durance.organizeAlphabetically();
+        String[] itemsNameExpectBagTwo = {"Axe","Axe", "Marigold", "Silk"};
+        int count = 0;
+        for (Item item: durance.bags.get(1).items()){
+            assertEquals(item.name(),itemsNameExpectBagTwo[count]);
+            count++;
+        }
+    }
+
 
     private ArrayList<Item> initData() {
         ArrayList<Item> items = new ArrayList<>();

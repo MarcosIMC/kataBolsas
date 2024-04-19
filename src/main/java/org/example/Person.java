@@ -1,6 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Person {
     Backpack backpack;
@@ -35,6 +35,7 @@ public class Person {
         ArrayList<Item> floor = putItemsOnFloor();
         clearPack();
         organizeByCategory(floor);
+        organizeAlphabetically();
 
         if (!floor.isEmpty()) {
             floor.clear();
@@ -49,7 +50,7 @@ public class Person {
         return floor;
     }
 
-    private void clearPack() {
+    void clearPack() {
         this.backpack.items().clear();
         for (Bag bag: this.bags) {
             bag.items().clear();
@@ -70,5 +71,13 @@ public class Person {
                 this.bags.get(1).addItem(item);
             }
         }
+    }
+
+    public void organizeAlphabetically() {
+        this.backpack.items().sort(Comparator.comparing(Item::name));
+        for (Bag bag: this.bags){
+            bag.items().sort(Comparator.comparing(Item::name));
+        }
+
     }
 }
