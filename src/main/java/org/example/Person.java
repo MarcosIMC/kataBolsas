@@ -11,15 +11,15 @@ import java.util.List;
 // Person atributo > inventario List de Pack
 
 public class Person {
-    private List<Item> backpack = new ArrayList<>();
-    private List<Item> metalBag = new ArrayList<>();
+    private BackPack backpack = new BackPack();
+    private Bag metalBag = new Bag(Category.METAL);
     public void addItem(Item item) {
 
-        if(backpack.size() < 8) backpack.add(item);
-        else if(metalBag.size() < 4) metalBag.add(item);
+        if( backpack.items().size() < backpack.maxCapacity()) backpack.addItem(item);
+        else if(metalBag.items().size() < metalBag.maxCapacity()) metalBag.addItem(item);
     }
 
-    public List<Item> getBackpack() { return this.backpack;
+    public BackPack getBackpack() { return this.backpack;
     }
     public String[] getBackpackItemsName() { return null;}
 
@@ -31,5 +31,5 @@ public class Person {
     public void organize() {
     }
 
-    public List<Item> getMetalBag() { return this.metalBag;}
+    public Bag getMetalBag() { return this.metalBag;}
 }

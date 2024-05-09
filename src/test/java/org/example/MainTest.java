@@ -29,8 +29,8 @@ public class MainTest {
         durance.addItems(items);
         durance.organize();
 
-        assertEquals(6, durance.getBackpack().size());
-        assertEquals(4, durance.getMetalBag().size());
+        assertEquals(6, durance.getBackpack().items().size());
+        assertEquals(4, durance.getMetalBag().items().size());
         assertArrayEquals(itemsInBackpack, durance.getBackpackItemsName());
         assertArrayEquals(itemsInMetalBag, durance.getBagItemsName());
 

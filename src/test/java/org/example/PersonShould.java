@@ -22,7 +22,7 @@ public class PersonShould {
 
         person.addItem(item);
 
-        assertEquals(1, person.getBackpack().size());
+        assertEquals(1, person.getBackpack().items().size());
     }
     @Test
     void DoNotAddMoreThanEightItemsToBackpack() {
@@ -31,7 +31,7 @@ public class PersonShould {
         for (int i = 0; i < 10; i++) {
             person.addItem(item);
         }
-        assertEquals(8, person.getBackpack().size());
+        assertEquals(8, person.getBackpack().items().size());
     }
     @Test
     void AddOneItemItGoesToMetalBag() {
@@ -40,15 +40,15 @@ public class PersonShould {
         for (int i = 0; i < 10; i++) {
             person.addItem(item);
         }
-        assertEquals(2, person.getMetalBag().size());
+        assertEquals(2, person.getMetalBag().items().size());
     }
     @Test
-    void DoNOtAddMoreThanFourItemsToMetalBAg() {
+    void DoNotAddMoreThanFourItemsToMetalBag() {
         Person person = new Person();
         Item item = new Item("iron");
         for (int i = 0; i < 15; i++) {
             person.addItem(item);
         }
-        assertEquals(4, person.getMetalBag().size());
+        assertEquals(4, person.getMetalBag().items().size());
     }
 }
