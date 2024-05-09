@@ -1,5 +1,5 @@
 package org.example;
 
 public enum Category {
-    BACKPACK, METAL
+    BACKPACK, METAL, HERB, WEAPON, CLOTHES
 }
