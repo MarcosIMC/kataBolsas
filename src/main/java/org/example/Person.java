@@ -77,4 +77,12 @@ public class Person {
                 .toList();
         return packObtained.get(0);
     }
+
+    public List<Category> getAllCagetory() {
+        List<Category> allCategory = new ArrayList<>();
+        this.inventory.forEach( (pack) -> {
+            allCategory.add(pack.category());
+        });
+        return allCategory;
+    }
 }

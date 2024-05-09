@@ -2,6 +2,8 @@ package org.example;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PersonShould {
@@ -31,39 +33,45 @@ public class PersonShould {
         for (int i = 0; i < 10; i++) {
             person.addItem(item);
         }
-        assertEquals(8, person.getPackBy(Category.BACKPACK).items().size());
+        assertEquals(person.getPackBy(Category.BACKPACK).maxCapacity(),
+                person.getPackBy(Category.BACKPACK).items().size());
     }
     @Test
     void AddOneItemItGoesToMetalBag() {
         Person person = new Person();
+        List<Category> allCategory = person.getAllCagetory();
         Item item = new Item("iron");
         for (int i = 0; i < 10; i++) {
             person.addItem(item);
         }
-        assertEquals(2, person.getPackBy(Category.METAL).items().size());
+        assertEquals(2, person.getPackBy(allCategory.get(1)).items().size());
     }
     @Test
     void DoNotAddMoreThanFourItemsToMetalBag() {
         Person person = new Person();
+        List<Category> allCategory = person.getAllCagetory();
         Item item = new Item("iron");
         for (int i = 0; i < 15; i++) {
             person.addItem(item);
         }
-        assertEquals(4, person.getPackBy(Category.METAL).items().size());
+        assertEquals(person.getPackBy(allCategory.get(1)).maxCapacity(),
+                person.getPackBy(allCategory.get(1)).items().size());
     }
 
     @Test
     void fillAllPacks(){
         Person person = new Person();
+        List<Category> allCategory = person.getAllCagetory();
         Item item = new Item("iron");
+
         for (int i = 0; i < 24; i++) {
             person.addItem(item);
         }
-        //List<Category> allCategory =person.getAllCagetory(); // [Backpack, metal, herbs, weapon, clothes]
-        assertEquals(8, person.getPackBy(Category.BACKPACK).items().size());
-        assertEquals(4, person.getPackBy(Category.METAL).items().size());
-        assertEquals(4, person.getPackBy(Category.HERB).items().size());
-        assertEquals(4, person.getPackBy(Category.WEAPON).items().size());
-        assertEquals(4, person.getPackBy(Category.CLOTHES).items().size());
+
+        allCategory.forEach((category) ->{
+            assertEquals(person.getPackBy(category).maxCapacity(),
+                    person.getPackBy(category).items().size());
+        });
+
     }
 }
