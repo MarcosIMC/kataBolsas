@@ -6,12 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-// Clase abstracta Pack  , con atributos (category, maxCapacity, lista items)
-// clase hija Backpack hereda de Pack
-// Calse hija Bag hereda de Pack
-// Enum de categorias>> backpack, metal, ...
-// Person atributo > inventario List de Pack
+//
 
 public class Person {
     private ArrayList<Pack> inventory = new ArrayList<>();
@@ -47,6 +42,9 @@ public class Person {
     public String[] getBagItemsName() { return null;}
 
     public void addItems(Item[] items) {
+        for (Item item: items){
+            addItem(item);
+        }
     }
 
     public void organize() {
