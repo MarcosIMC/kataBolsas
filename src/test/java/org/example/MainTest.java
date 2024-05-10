@@ -2,8 +2,6 @@ package org.example;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,22 +10,22 @@ public class MainTest {
     void executeMagic() {
         Person durance = new Person(null);
         Item[] items = new Item[] {
-                new Item("Leather"),
-                new Item("Iron"),
-                new Item("Copper"),
-                new Item("Marigold"),
-                new Item("Wool"),
-                new Item("Gold"),
-                new Item("Solk"),
-                new Item("Copper"),
-                new Item("Copper"),
-                new Item("Cherry Blosom"),
+                new Item("Leather", Category.CLOTHES),
+                new Item("Iron", Category.METAL),
+                new Item("Copper", Category.METAL),
+                new Item("Marigold", Category.HERB),
+                new Item("Wool", Category.CLOTHES),
+                new Item("Gold", Category.METAL),
+                new Item("Silk", Category.CLOTHES),
+                new Item("Copper", Category.METAL),
+                new Item("Copper", Category.METAL),
+                new Item("Cherry Blosom", Category.HERB),
         };
         String[] itemsInBackpack = {"Cherry Blossom", "Iron", "Leather", "Marigold", "Silk", "Wool"};
         String[] itemsInMetalBag = {"Copper", "Copper", "Copper", "Gold"};
 
         durance.addItems(items);
-        durance.organize();
+        durance.doMagic();
 
         assertEquals(6, durance.getPackBy(Category.BACKPACK).items().size());
         assertEquals(4, durance.getPackBy(Category.METAL).items().size());

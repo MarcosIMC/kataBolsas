@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PersonShould {
@@ -43,7 +44,7 @@ public class PersonShould {
     @Test
     void AddOneItemItGoesToBackpack() {
         Person person = new Person(obtainSetup());
-        Item item = new Item("iron");
+        Item item = new Item("iron", Category.METAL);
 
         person.addItem(item);
 
@@ -52,7 +53,7 @@ public class PersonShould {
     @Test
     void DoNotAddMoreThanEightItemsToBackpack() {
         Person person = new Person(obtainSetup());
-        Item item = new Item("iron");
+        Item item = new Item("iron", Category.METAL);
         for (int i = 0; i < 10; i++) {
             person.addItem(item);
         }
@@ -63,7 +64,7 @@ public class PersonShould {
     void AddOneItemItGoesToMetalBag() {
         Person person = new Person(obtainSetup());
         List<Category> allCategory = person.getAllCagetory();
-        Item item = new Item("iron");
+        Item item = new Item("iron", Category.METAL);
         for (int i = 0; i < 10; i++) {
             person.addItem(item);
         }
@@ -73,7 +74,7 @@ public class PersonShould {
     void DoNotAddMoreThanFourItemsToMetalBag() {
         Person person = new Person(obtainSetup());
         List<Category> allCategory = person.getAllCagetory();
-        Item item = new Item("iron");
+        Item item = new Item("iron", Category.METAL);
         for (int i = 0; i < 15; i++) {
             person.addItem(item);
         }
@@ -85,7 +86,7 @@ public class PersonShould {
     void fillAllPacks(){
         Person person = new Person(obtainSetup());
         List<Category> allCategory = person.getAllCagetory();
-        Item item = new Item("iron");
+        Item item = new Item("iron", Category.METAL);
 
         for (int i = 0; i < 24; i++) {
             person.addItem(item);
@@ -103,7 +104,7 @@ public class PersonShould {
         Person person = new Person(obtainSetup2());
 
         List<Category> allCategory = person.getAllCagetory();
-        Item item = new Item("iron");
+        Item item = new Item("iron", Category.METAL);
 
         for (int i = 0; i < 24; i++) {
             person.addItem(item);
@@ -115,5 +116,36 @@ public class PersonShould {
         });
 
         assertEquals(4, person.getInventory().get(3).items().size());
+    }
+
+    @Test
+    void organizeByCategoryAndAlphabetically() { //DO MAGIC!!!!
+        String[] itemsInBackpack = {"Cherry Blossom", "Iron", "Leather", "Marigold", "Silk", "Wool"};
+        String[] itemsInMetalBag = {"Copper", "Copper", "Copper", "Gold"};
+        ArrayList<Category> categories = new ArrayList<>();
+        categories.add(Category.METAL);
+
+        Person person = new Person(categories);
+        Item[] items = new Item[] {
+                new Item("Leather", Category.CLOTHES),
+                new Item("Iron", Category.METAL),
+                new Item("Copper", Category.METAL),
+                new Item("Marigold", Category.HERB),
+                new Item("Wool", Category.CLOTHES),
+                new Item("Gold", Category.METAL),
+                new Item("Silk", Category.CLOTHES),
+                new Item("Copper", Category.METAL),
+                new Item("Copper", Category.METAL),
+                new Item("Cherry Blosom", Category.HERB),
+        };
+
+        person.addItems(items);
+
+        person.doMagic();
+
+        assertEquals(6, person.getPackBy(Category.BACKPACK).items().size());
+        assertEquals(4, person.getPackBy(Category.METAL).items().size());
+        //assertArrayEquals(itemsInBackpack, person.getBackpackItemsName());
+        //assertArrayEquals(itemsInMetalBag, person.getBagItemsName());
     }
 }

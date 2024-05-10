@@ -1,14 +1,10 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-// Poder añadir tantas bag como quiera (setup de forma dinámica)
-// Una vez tener esto, comenzamos los test de organizar (MAGIC!!!)
+//Añadir y mirar el reduce para el remove de la lista
+//Ordenar los elementos del pack
 
 public class Person {
     private ArrayList<Pack> inventory = new ArrayList<>();
@@ -33,13 +29,6 @@ public class Person {
                 break;
             }
         }
-        /*
-        if( backpack.items().size() < backpack.maxCapacity()) backpack.addItem(item);
-        else if(metalBag.items().size() < metalBag.maxCapacity()) metalBag.addItem(item);
-        else if(herbBag.items().size() < herbBag.maxCapacity()) herbBag.addItem(item);
-        else if(weaponBag.items().size() < weaponBag.maxCapacity()) weaponBag.addItem(item);
-        else if(clothesBag.items().size() < clothesBag.maxCapacity()) clothesBag.addItem(item);
-         */
     }
 
     public String[] getBackpackItemsName() { return null;}
@@ -52,33 +41,39 @@ public class Person {
         }
     }
 
-    public void organize() {
-    }
-/*
-    public BackPack getBackpack() { return this.backpack;
-    }
+    public void doMagic() {
+        ArrayList<Item> floor = new ArrayList<>();
 
-    public Bag getMetalBag() { return this.metalBag;}
+        for (Pack pack: this.inventory){
+            floor.addAll(pack.items());
+            pack.items().clear();
+        }
 
-    public Bag getHerbBag() {
-        return herbBag;
+        for (Item item: floor){
+            Pack currentBag = getPackBy(item.getCategory());
+
+            if (currentBag != null){
+                if (currentBag.items().size() < currentBag.maxCapacity()) {
+                    currentBag.addItem(item);
+                } else if (this.inventory.get(0).items().size() < this.inventory.get(0).maxCapacity()) {
+                    this.inventory.get(0).addItem(item);
+                }
+            } else if (this.inventory.get(0).items().size() < this.inventory.get(0).maxCapacity()) {
+                this.inventory.get(0).addItem(item);
+            }
+        }
     }
-
-    public Bag getWeaponBag() {
-        return weaponBag;
-    }
-
-    public Bag getClothesBag() {
-        return clothesBag;
-    }
-
- */
 
     public Pack getPackBy(Category category) {
         List<Pack> packObtained = this.inventory.stream()
                 .filter((pack) -> pack.category() == category)
                 .toList();
-        return packObtained.get(0);
+
+        if (!packObtained.isEmpty()) {
+            return packObtained.get(0);
+        }
+
+        return null;
     }
 
     public List<Category> getAllCagetory() {
