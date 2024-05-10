@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MainTest {
     @Test
     void executeMagic() {
-        Person durance = new Person();
+        Person durance = new Person(null);
         Item[] items = new Item[] {
                 new Item("Leather"),
                 new Item("Iron"),

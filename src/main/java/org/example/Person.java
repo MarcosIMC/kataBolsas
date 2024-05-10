@@ -7,20 +7,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-// Comprobar que se puedan meter dos bag de la misma categoria
 // Poder añadir tantas bag como quiera (setup de forma dinámica)
 // Una vez tener esto, comenzamos los test de organizar (MAGIC!!!)
 
 public class Person {
     private ArrayList<Pack> inventory = new ArrayList<>();
 
-    public Person() {
+    public Person(ArrayList<Category> allCategories) {
         this.inventory.add(new BackPack());
-        this.inventory.add(new Bag(Category.METAL));
-        this.inventory.add(new Bag(Category.HERB));
-        this.inventory.add(new Bag(Category.WEAPON));
-        this.inventory.add(new Bag(Category.CLOTHES));
 
+        for (Category category : allCategories) {
+            this.inventory.add(new Bag(category));
+        }
+    }
+
+    public ArrayList<Pack> getInventory() {
+        return this.inventory;
     }
 
     public void addItem(Item item) {
