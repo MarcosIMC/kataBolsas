@@ -1,46 +1,27 @@
 package org.example;
 
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PersonShould {
-    //-add item to backpack
-    // add until 8 to backpack
-    //-add item to bag
-    // add until 4 to bag
-    // fill all packs
-
-    //-volcar los items a otro sitio
-    //-delete items
-    //-organize (lanza hechizo)
-
     private ArrayList<Category> obtainSetup() {
         ArrayList<Category> categories = new ArrayList<>();
-
         categories.add(Category.CLOTHES);
         categories.add(Category.HERB);
         categories.add(Category.METAL);
         categories.add(Category.WEAPON);
-
         return categories;
     }
-
     private ArrayList<Category> obtainSetup2() {
         ArrayList<Category> categories = new ArrayList<>();
-
         categories.add(Category.CLOTHES);
         categories.add(Category.CLOTHES);
         categories.add(Category.METAL);
         categories.add(Category.WEAPON);
-
         return categories;
     }
-
     @Test
     void AddOneItemItGoesToBackpack() {
         Person person = new Person(obtainSetup());
@@ -81,7 +62,6 @@ public class PersonShould {
         assertEquals(person.getPackBy(allCategory.get(1)).maxCapacity(),
                 person.getPackBy(allCategory.get(1)).items().size());
     }
-
     @Test
     void fillAllPacks(){
         Person person = new Person(obtainSetup());
@@ -96,13 +76,10 @@ public class PersonShould {
             assertEquals(person.getPackBy(category).maxCapacity(),
                     person.getPackBy(category).items().size());
         });
-
     }
-
     @Test
     void addItemsWithTwoBagsSameCategory() {
         Person person = new Person(obtainSetup2());
-
         List<Category> allCategory = person.getAllCagetory();
         Item item = new Item("iron", Category.METAL);
 
@@ -110,21 +87,18 @@ public class PersonShould {
             person.addItem(item);
         }
 
-        allCategory.forEach((category) ->{
+        allCategory.forEach((category) -> {
             assertEquals(person.getPackBy(category).maxCapacity(),
                     person.getPackBy(category).items().size());
         });
-
         assertEquals(4, person.getInventory().get(3).items().size());
     }
-
     @Test
     void organizeByCategoryAndAlphabetically() { //DO MAGIC!!!!
-        String[] itemsInBackpack = {"Cherry Blossom", "Iron", "Leather", "Marigold", "Silk", "Wool"};
-        String[] itemsInMetalBag = {"Copper", "Copper", "Copper", "Gold"};
+        List<String> itemsInBackpack = List.of("Cherry Blossom", "Iron", "Leather", "Marigold", "Silk", "Wool");
+        List<String> itemsInMetalBag = List.of( "Copper", "Copper", "Copper", "Gold");
         ArrayList<Category> categories = new ArrayList<>();
         categories.add(Category.METAL);
-
         Person person = new Person(categories);
         Item[] items = new Item[] {
                 new Item("Leather", Category.CLOTHES),
@@ -136,16 +110,15 @@ public class PersonShould {
                 new Item("Silk", Category.CLOTHES),
                 new Item("Copper", Category.METAL),
                 new Item("Copper", Category.METAL),
-                new Item("Cherry Blosom", Category.HERB),
+                new Item("Cherry Blossom", Category.HERB),
         };
-
         person.addItems(items);
 
         person.doMagic();
 
         assertEquals(6, person.getPackBy(Category.BACKPACK).items().size());
         assertEquals(4, person.getPackBy(Category.METAL).items().size());
-        //assertArrayEquals(itemsInBackpack, person.getBackpackItemsName());
-        //assertArrayEquals(itemsInMetalBag, person.getBagItemsName());
+        assertEquals(itemsInBackpack, person.getPackItemsName(person.getPackBy(Category.BACKPACK)));
+        assertEquals(itemsInMetalBag, person.getPackItemsName(person.getPackBy(Category.METAL)));
     }
 }

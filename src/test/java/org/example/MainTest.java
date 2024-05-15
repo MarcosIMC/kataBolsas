@@ -1,14 +1,15 @@
 package org.example;
-
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MainTest {
     @Test
     void executeMagic() {
-        Person durance = new Person(null);
+        Person durance = new Person(new ArrayList<>(Arrays.asList(Category.METAL, Category.WEAPON, Category.NONE, Category.NONE)));
         Item[] items = new Item[] {
                 new Item("Leather", Category.CLOTHES),
                 new Item("Iron", Category.METAL),
@@ -19,18 +20,17 @@ public class MainTest {
                 new Item("Silk", Category.CLOTHES),
                 new Item("Copper", Category.METAL),
                 new Item("Copper", Category.METAL),
-                new Item("Cherry Blosom", Category.HERB),
+                new Item("Cherry Blossom", Category.HERB),
         };
-        String[] itemsInBackpack = {"Cherry Blossom", "Iron", "Leather", "Marigold", "Silk", "Wool"};
-        String[] itemsInMetalBag = {"Copper", "Copper", "Copper", "Gold"};
+        List<String> itemsInBackpack = List.of("Cherry Blossom", "Iron", "Leather", "Marigold", "Silk", "Wool");
+        List<String> itemsInMetalBag = List.of("Copper", "Copper", "Copper", "Gold");
 
         durance.addItems(items);
         durance.doMagic();
 
         assertEquals(6, durance.getPackBy(Category.BACKPACK).items().size());
         assertEquals(4, durance.getPackBy(Category.METAL).items().size());
-        assertArrayEquals(itemsInBackpack, durance.getBackpackItemsName());
-        assertArrayEquals(itemsInMetalBag, durance.getBagItemsName());
-
+        assertEquals(itemsInBackpack, durance.getPackItemsName(durance.getPackBy(Category.BACKPACK)));
+        assertEquals(itemsInMetalBag, durance.getPackItemsName(durance.getPackBy(Category.METAL)));
     }
 }
