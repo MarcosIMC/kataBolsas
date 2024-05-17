@@ -44,6 +44,8 @@ public class Person {
                 currentBag.addItem(item);
             } else if (hasBagSpace(getPackBy(Category.BACKPACK))) {
                 getPackBy(Category.BACKPACK).addItem(item);
+            } else if (existBag(getPackBy(Category.NONE)) && (hasBagSpace(getPackBy(Category.NONE)))) {
+                getPackBy(Category.NONE).addItem(item);
             }
         }
     }
